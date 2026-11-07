@@ -1,0 +1,111 @@
+{
+  "language": "english",
+  "duration": 73.42,
+  "sentences": [
+    {
+      "idx": 0,
+      "text": "In 1925, a brilliant con artist pulled off the most impossible heist in history.",
+      "start": 0.0,
+      "end": 5.95,
+      "dur": 5.95
+    },
+    {
+      "idx": 1,
+      "text": "He sold the Eiffel Tower for scrap metal—without owning a single bolt.",
+      "start": 6.25,
+      "end": 10.72,
+      "dur": 4.46
+    },
+    {
+      "idx": 2,
+      "text": "His name was Victor Lustig.",
+      "start": 11.02,
+      "end": 12.89,
+      "dur": 1.87
+    },
+    {
+      "idx": 3,
+      "text": "Reading that Paris couldn't afford the tower's repairs, he forged official ministry papers.",
+      "start": 13.19,
+      "end": 18.76,
+      "dur": 5.57
+    },
+    {
+      "idx": 4,
+      "text": "He secretly invited six greedy scrap-metal dealers to a luxury suite at Hotel de Crillon.",
+      "start": 19.06,
+      "end": 25.46,
+      "dur": 6.41
+    },
+    {
+      "idx": 5,
+      "text": "He claimed the city was quietly demolishing the tower, and targeted one insecure dealer: André Poisson.",
+      "start": 25.76,
+      "end": 32.8,
+      "dur": 7.03
+    },
+    {
+      "idx": 6,
+      "text": "When Poisson grew suspicious, Lustig played his psychological masterstroke.",
+      "start": 33.1,
+      "end": 38.35,
+      "dur": 5.26
+    },
+    {
+      "idx": 7,
+      "text": "He subtly hinted that as an underpaid clerk, he needed a personal bribe.",
+      "start": 38.65,
+      "end": 43.4,
+      "dur": 4.75
+    },
+    {
+      "idx": 8,
+      "text": "Instantly, Poisson's doubts vanished.",
+      "start": 43.7,
+      "end": 46.32,
+      "dur": 2.62
+    },
+    {
+      "idx": 9,
+      "text": "In France, corrupt bureaucrats were normal—a bribe proved the deal was real.",
+      "start": 46.62,
+      "end": 51.52,
+      "dur": 4.9
+    },
+    {
+      "idx": 10,
+      "text": "Poisson handed over a suitcase of cash, and Lustig boarded a train to Vienna.",
+      "start": 51.82,
+      "end": 57.38,
+      "dur": 5.57
+    },
+    {
+      "idx": 11,
+      "text": "Poisson was so humiliated he never went to the police.",
+      "start": 57.68,
+      "end": 61.09,
+      "dur": 3.41
+    },
+    {
+      "idx": 12,
+      "text": "Months later, Lustig returned to Paris to sell the Eiffel Tower a second time!",
+      "start": 61.39,
+      "end": 66.38,
+      "dur": 4.99
+    },
+    {
+      "idx": 13,
+      "text": "Master con artists never sell impossible lies.",
+      "start": 66.68,
+      "end": 69.78,
+      "dur": 3.1
+    },
+    {
+      "idx": 14,
+      "text": "They simply sell people what their greed wants to believe.",
+      "start": 70.08,
+      "end": 73.42,
+      "dur": 3.34
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^2.16.3",
+    "@remotion/bundler": "^4.0.541",
+    "@remotion/cli": "^4.0.541",
+    "@remotion/renderer": "^4.0.541",
+    "@remotion/three": "^4.0.541",
+    "@types/three": "^0.170.0",
+    "postprocessing": "^6.36.0",
+    "three": "^0.170.0"
+  }
+}
