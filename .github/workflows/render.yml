@@ -1,0 +1,50 @@
+name: Render Eiffel base
+on: workflow_dispatch
+
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: System libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libnss3 libdbus-1-3 libatk1.0-0t64 \
+            libatk-bridge2.0-0t64 libcups2t64 libasound2t64 libxrandr2 \
+            libxkbcommon0 libxfixes3 libxcomposite1 libxdamage1 libgbm1
+
+      - name: Install packages
+        run: |
+          rm -rf node_modules
+          npm install --legacy-peer-deps --no-audit --no-fund
+          npm install react@18.3.1 react-dom@18.3.1 --legacy-peer-deps --no-audit --no-fund
+
+      - name: Show compositions
+        continue-on-error: true
+        run: npx remotion compositions src/index.ts --gl=angle-egl
+
+      - name: Render
+        run: |
+          mkdir -p out
+          CORES=$(nproc)
+          echo "cores: $CORES"
+          for GL in angle-egl swangle angle; do
+            echo "=== trying gl=$GL ==="
+            if npx remotion render src/index.ts EiffelBase out/eiffel_base.mp4 --concurrency=$CORES --gl=$GL; then
+              echo "SUCCESS with $GL"
+              exit 0
+            fi
+          done
+          echo "all WebGL modes failed"
+          exit 1
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eiffel_base
+          path: out/eiffel_base.mp4
