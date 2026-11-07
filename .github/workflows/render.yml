@@ -4,10 +4,22 @@ on: workflow_dispatch
 jobs:
   render:
     runs-on: ubuntu-24.04
-    timeout-minutes: 300
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { idx: 0, frames: "0-249" }
+          - { idx: 1, frames: "250-499" }
+          - { idx: 2, frames: "500-749" }
+          - { idx: 3, frames: "750-999" }
+          - { idx: 4, frames: "1000-1249" }
+          - { idx: 5, frames: "1250-1499" }
+          - { idx: 6, frames: "1500-1749" }
+          - { idx: 7, frames: "1750-1999" }
+          - { idx: 8, frames: "2000-2249" }
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -25,26 +37,38 @@ jobs:
           npm install --legacy-peer-deps --no-audit --no-fund
           npm install react@18.3.1 react-dom@18.3.1 --legacy-peer-deps --no-audit --no-fund
 
-      - name: Show compositions
-        continue-on-error: true
-        run: npx remotion compositions src/index.ts --gl=angle-egl
-
-      - name: Render
+      - name: Render chunk
         run: |
           mkdir -p out
           CORES=$(nproc)
-          echo "cores: $CORES"
           for GL in angle-egl swangle angle; do
-            echo "=== trying gl=$GL ==="
-            if npx remotion render src/index.ts EiffelBase out/eiffel_base.mp4 --concurrency=$CORES --gl=$GL; then
-              echo "SUCCESS with $GL"
+            echo "=== chunk ${{ matrix.idx }} frames ${{ matrix.frames }} gl=$GL ==="
+            if npx remotion render src/index.ts EiffelBase out/part.mp4 \
+                 --frames=${{ matrix.frames }} --concurrency=$CORES --gl=$GL; then
               exit 0
             fi
           done
-          echo "all WebGL modes failed"
           exit 1
 
       - uses: actions/upload-artifact@v4
         with:
-          name: eiffel_base
-          path: out/eiffel_base.mp4
+          name: chunk-${{ matrix.idx }}
+          path: out/part.mp4
+
+  merge:
+    needs: render
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: parts
+      - name: Join chunks in order
+        run: |
+          sudo apt-get install -y ffmpeg
+          for i in 0 1 2 3 4 5 6 7 8; do echo "file 'parts/chunk-$i/part.mp4'" >> list.txt; done
+          ffmpeg -f concat -safe 0 -i list.txt -c copy eiffel_base.mp4
+          ffprobe -v error -show_entries format=duration -of csv=p=0 eiffel_base.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eiffel_base_full
+          path: eiffel_base.mp4
